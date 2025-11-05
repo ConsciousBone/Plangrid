@@ -25,9 +25,6 @@ struct ContentView: View {
             Tab("Schedule", systemImage: "square.grid.2x2") {
                 ScheduleView()
             }
-            Tab("Events", systemImage: "list.bullet") {
-                EventsView()
-            }
             Tab("Settings", systemImage: "gear") {
                 SettingsView()
             }
