@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct ScheduleView: View {
+    @AppStorage("gridColumns") private var gridColumns = 5
+    private var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible()), count: gridColumns)
+    }
+    
     var body: some View {
-        Text("Schedule view")
+        ScrollView {
+            LazyVGrid(columns: columns) {
+                Text("placeholder")
+            }
+            .padding()
+        }
     }
 }
 
