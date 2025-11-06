@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 5
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 5 // blue
     let accentColours = [
         Color.red.gradient, Color.orange.gradient,
         Color.yellow.gradient, Color.green.gradient,
@@ -25,6 +25,7 @@ struct SettingsView: View {
     ]
     
     @AppStorage("gridColumns") private var gridColumns = 5
+    @AppStorage("eventsPerColumn") private var eventsPerColumn = 5
     
     // ew ew ew bad code ew
     // i know theres a better way somewhere somehow but i cant be
@@ -52,6 +53,10 @@ struct SettingsView: View {
             Section {
                 Stepper(value: $gridColumns, in: 1...7) {
                     Label("Days in grid: \(gridColumns)", systemImage: "calendar")
+                }
+                
+                Stepper(value: $eventsPerColumn, in: 1...15) {
+                    Label("Events per column: \(eventsPerColumn)", systemImage: "ellipsis.calendar")
                 }
             }
             
