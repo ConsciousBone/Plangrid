@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct ColumnTitleRowView: View {
-    var label: String
+    var num: String
     var placeholder: String
     @Binding var variable: String
     
     var body: some View {
         HStack {
-            Text(label)
+            Text("Column \(num)")
             Spacer()
             TextField(placeholder, text: $variable)
                 .multilineTextAlignment(.trailing)
+                .autocorrectionDisabled()
         }
     }
 }

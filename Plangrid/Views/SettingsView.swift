@@ -56,10 +56,42 @@ struct SettingsView: View {
             }
             
             Section {
-                
+                ForEach(1...gridColumns, id: \.self) { i in
+                    ColumnTitleRowView(
+                        num: "\(i)",
+                        placeholder: colLabelPlaceholder(for: i),
+                        variable: colLabelVar(for: i)
+                    )
+                }
             } header: {
                 Text("Column titles")
             }
+        }
+    }
+    
+    // ew ew even more bad code
+    private func colLabelVar(for index: Int) -> Binding<String> {
+        switch index {
+        case 1: return $column1Label
+        case 2: return $column2Label
+        case 3: return $column3Label
+        case 4: return $column4Label
+        case 5: return $column5Label
+        case 6: return $column6Label
+        case 7: return $column7Label
+        default: return $column1Label
+        }
+    }
+    private func colLabelPlaceholder(for index: Int) -> String {
+        switch index {
+        case 1: return "Mon"
+        case 2: return "Tue"
+        case 3: return "Wed"
+        case 4: return "Thu"
+        case 5: return "Fri"
+        case 6: return "Sat"
+        case 7: return "Sun"
+        default: return ""
         }
     }
 }
