@@ -24,6 +24,8 @@ struct SettingsView: View {
         "White", "Black"
     ]
     
+    @AppStorage("gridColumns") private var gridColumns = 5
+    
     var body: some View {
         Form {
             Section {
@@ -33,6 +35,12 @@ struct SettingsView: View {
                     }
                 } label: {
                     Label("Accent colour", systemImage: "paintpalette")
+                }
+            }
+            
+            Section {
+                Stepper(value: $gridColumns, in: 1...7) {
+                    Label("Days in grid: \(gridColumns)", systemImage: "calendar")
                 }
             }
         }
