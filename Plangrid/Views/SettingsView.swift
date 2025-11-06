@@ -26,6 +26,17 @@ struct SettingsView: View {
     
     @AppStorage("gridColumns") private var gridColumns = 5
     
+    // ew ew ew bad code ew
+    // i know theres a better way somewhere somehow but i cant be
+    // bothered finding it and learning it when i have like 3 days left
+    @AppStorage("column1Label") private var column1Label = "Mon"
+    @AppStorage("column2Label") private var column2Label = "Tue"
+    @AppStorage("column3Label") private var column3Label = "Wed"
+    @AppStorage("column4Label") private var column4Label = "Thu"
+    @AppStorage("column5Label") private var column5Label = "Fri"
+    @AppStorage("column6Label") private var column6Label = "Sat"
+    @AppStorage("column7Label") private var column7Label = "Sun"
+    
     var body: some View {
         Form {
             Section {
@@ -42,6 +53,12 @@ struct SettingsView: View {
                 Stepper(value: $gridColumns, in: 1...7) {
                     Label("Days in grid: \(gridColumns)", systemImage: "calendar")
                 }
+            }
+            
+            Section {
+                
+            } header: {
+                Text("Column titles")
             }
         }
     }
