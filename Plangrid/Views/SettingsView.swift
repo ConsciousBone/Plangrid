@@ -55,7 +55,7 @@ struct SettingsView: View {
                     Label("Days in grid: \(gridColumns)", systemImage: "calendar")
                 }
                 
-                Stepper(value: $eventsPerColumn, in: 1...15) {
+                Stepper(value: $eventsPerColumn, in: 1...10) {
                     Label("Events per column: \(eventsPerColumn)", systemImage: "ellipsis.calendar")
                 }
             }
