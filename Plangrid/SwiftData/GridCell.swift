@@ -20,7 +20,7 @@ import SwiftData
         column: Int,
         row: Int,
         iconIndex: Int = 0,
-        colourIndex: Int = 0,
+        colourIndex: Int = 5,
         name: String = "",
         notes: String = ""
     ){
