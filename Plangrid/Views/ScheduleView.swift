@@ -29,6 +29,7 @@ struct ScheduleView: View {
                 ForEach(0..<gridColumns, id: \.self) { index in
                     Text(colLabelText(for: index))
                 }
+                
                 ForEach(0..<gridColumns * eventsPerColumn, id: \.self) { index in
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundStyle(.blue)
