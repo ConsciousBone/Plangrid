@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ScheduleView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \GridCell.row) private var cells: [GridCell]
+    
     @AppStorage("gridColumns") private var gridColumns = 5
     @AppStorage("eventsPerColumn") private var eventsPerColumn = 5
     private var columns: [GridItem] {

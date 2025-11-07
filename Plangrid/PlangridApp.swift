@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PlangridApp: App {
@@ -13,5 +14,6 @@ struct PlangridApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [GridCell.self])
     }
 }
