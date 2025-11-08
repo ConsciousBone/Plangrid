@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct GridCellDetailView: View {
-    var cellName: String
-    var cellNotes: String
-    var cellIconIndex: Int
-    var cellColourIndex: Int
+    @State var cellName: String
+    @State var cellNotes: String
+    @State var cellIconIndex: Int
+    @State var cellColourIndex: Int
     
     let cellIcons = [
         "document", "clipboard", "book",
