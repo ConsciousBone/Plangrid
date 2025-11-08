@@ -50,21 +50,24 @@ struct ScheduleView: View {
     ]
     
     var body: some View {
-        //ScrollView {
+        NavigationStack {
             LazyVGrid(columns: columns) {
                 ForEach(0..<gridColumns, id: \.self) { index in
                     Text(colLabelText(for: index))
                 }
                 
-                ForEach(0..<gridColumns * eventsPerColumn, id: \.self) { index in
+                ForEach(0..<gridColumns * (eventsPerColumn + 1), id: \.self) { index in
                     let col = index % gridColumns
                     let row = index / gridColumns
-                    let cell = cellAt(column: col, row: row)
+                    let trueRow = row - 1
+                    let cell = cellAt(column: col, row: trueRow)
                     let background = accentColours[cell?.colourIndex ?? 5]
                     let bgBaseColour = baseAccentColours[cell?.colourIndex ?? 5]
                     
                     NavigationLink {
                         Text("aaah")
+                        Text("row \(trueRow)")
+                        Text("col \(col)")
                     } label: {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundStyle(background)
@@ -77,8 +80,9 @@ struct ScheduleView: View {
                     }
                 }
             }
+            .id(gridColumns) // ensures it updates when the var is changed
             .padding(25)
-        //}
+        }
     }
     
     private func cellAt(column: Int, row: Int) -> GridCell? {
