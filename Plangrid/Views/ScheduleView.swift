@@ -10,7 +10,10 @@ import SwiftData
 
 struct ScheduleView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \GridCell.row) private var cells: [GridCell]
+    @Query(sort: [
+        SortDescriptor(\GridCell.column),
+        SortDescriptor(\GridCell.row)
+    ]) private var cells: [GridCell]
     
     @AppStorage("gridColumns") private var gridColumns = 5
     @AppStorage("eventsPerColumn") private var eventsPerColumn = 5
@@ -65,9 +68,10 @@ struct ScheduleView: View {
                     let bgBaseColour = baseAccentColours[cell?.colourIndex ?? 5]
                     
                     NavigationLink {
-                        Text("aaah")
-                        Text("row \(trueRow)")
-                        Text("col \(col)")
+                        GridCellDetailView(
+                            cellName: cell?.name ?? "No name",
+                            cellNotes: cell?.notes ?? "No notes"
+                        )
                     } label: {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundStyle(background)
@@ -77,6 +81,9 @@ struct ScheduleView: View {
                                 Image(systemName: cellIcons[cell?.iconIndex ?? 0])
                                     .foregroundStyle(bgBaseColour.adaptedTextColor())
                             }
+                    }
+                    .onAppear {
+                        checkCellExists(column: col, row: trueRow)
                     }
                 }
             }
