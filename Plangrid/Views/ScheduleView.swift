@@ -63,29 +63,24 @@ struct ScheduleView: View {
                     let col = index % gridColumns
                     let row = index / gridColumns
                     let trueRow = row - 1
-                    let cell = cellAt(column: col, row: trueRow)
-                    let background = accentColours[cell?.colourIndex ?? 5]
-                    let bgBaseColour = baseAccentColours[cell?.colourIndex ?? 5]
+                    let cell = ensureCell(column: col, row: trueRow)
+                    let background = accentColours[cell.colourIndex]
+                    let bgBaseColour = baseAccentColours[cell.colourIndex]
                     
                     NavigationLink {
-                        GridCellDetailView(
-                            cellName: cell?.name ?? "No name",
-                            cellNotes: cell?.notes ?? "No notes",
-                            cellIconIndex: cell?.iconIndex ?? 0,
-                            cellColourIndex: cell?.colourIndex ?? 5
-                        )
+                        GridCellDetailView(cell: cell)
                     } label: {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundStyle(background)
                             .aspectRatio(1, contentMode: .fill)
                             .frame(maxWidth: 100)
                             .overlay {
-                                Image(systemName: cellIcons[cell?.iconIndex ?? 0])
+                                Image(systemName: cellIcons[cell.iconIndex])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(18)
                                     .foregroundStyle(bgBaseColour.adaptedTextColor())
                             }
-                    }
-                    .onAppear {
-                        checkCellExists(column: col, row: trueRow)
                     }
                 }
             }
@@ -100,10 +95,13 @@ struct ScheduleView: View {
         }
     }
     
-    private func checkCellExists(column: Int, row: Int) {
-        if cellAt(column: column, row: row) == nil {
+    private func ensureCell(column: Int, row: Int) -> GridCell {
+        if let existing = cellAt(column: column, row: row) {
+            return existing
+        } else {
             let new = GridCell(column: column, row: row)
             modelContext.insert(new)
+            return new
         }
     }
     

@@ -21,8 +21,8 @@ import SwiftData
         row: Int,
         iconIndex: Int = 0,
         colourIndex: Int = 5,
-        name: String = "",
-        notes: String = ""
+        name: String = "No name",
+        notes: String = "No notes"
     ){
         self.column = column
         self.row = row

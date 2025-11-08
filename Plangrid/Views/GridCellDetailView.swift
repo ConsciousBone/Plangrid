@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct GridCellDetailView: View {
-    @State var cellName: String
-    @State var cellNotes: String
-    @State var cellIconIndex: Int
-    @State var cellColourIndex: Int
+    @Bindable var cell: GridCell
     
     let cellIcons = [
         "document", "clipboard", "book",
@@ -32,27 +29,42 @@ struct GridCellDetailView: View {
         Form {
             Section {
                 HStack {
-                    RoundedRectangle(cornerRadius: 17)
-                        .foregroundStyle(accentColours[cellColourIndex])
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(accentColours[cell.colourIndex])
                         .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 60)
                         .overlay {
-                            Image(systemName: "\(cellIcons[cellIconIndex])")
+                            Image(systemName: "\(cellIcons[cell.iconIndex])")
                                 .resizable()
                                 .foregroundStyle(.blue.adaptedTextColor())
                                 .scaledToFit()
-                                .padding(32)
+                                .padding(15)
                         }
-                    VStack {
-                        Text(cellName)
-                        Text(cellNotes)
+                        .padding(5)
+                    VStack(alignment: .leading) {
+                        Text(cell.name)
+                        Text(cell.notes)
                             .foregroundStyle(.secondary)
+                        Text("Position (\(cell.row),\(cell.column))")
+                            .foregroundStyle(.secondary)
+                            .font(.footnote)
                     }
-                    .padding(5)
                 }
             }
+            
+            Section {
+                TextField("No name", text: $cell.name)
+            } header: {
+                Text("Cell name")
+            }
+            
+            Section {
+                TextField("No notes", text: $cell.notes)
+            } header: {
+                Text("Cell notes")
+            }
         }
-        .navigationTitle(cellName)
+        .navigationTitle(cell.name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
