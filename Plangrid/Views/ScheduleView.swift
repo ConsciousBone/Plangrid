@@ -70,7 +70,9 @@ struct ScheduleView: View {
                     NavigationLink {
                         GridCellDetailView(
                             cellName: cell?.name ?? "No name",
-                            cellNotes: cell?.notes ?? "No notes"
+                            cellNotes: cell?.notes ?? "No notes",
+                            cellIconIndex: cell?.iconIndex ?? 0,
+                            cellColourIndex: cell?.colourIndex ?? 5
                         )
                     } label: {
                         RoundedRectangle(cornerRadius: 10)

@@ -14,6 +14,20 @@ struct GridCellDetailView: View {
     var cellColourIndex: Int
     
     var body: some View {
-        Text("aa")
+        Form {
+            Section {
+                Text(cellName)
+            } header: {
+                Text("Name")
+            }
+            
+            Section {
+                Text(cellNotes)
+            } header: {
+                Text("Notes")
+            }
+        }
+        .navigationTitle(cellName)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
