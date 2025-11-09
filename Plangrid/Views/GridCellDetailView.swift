@@ -17,12 +17,27 @@ struct GridCellDetailView: View {
         "exclamationmark", "car", "bus",
         "bicycle", "house", "building"
     ]
+    let cellIconNames = [
+        "Document", "Clipboard", "Book",
+        "Clock", "Football", "Rugby ball",
+        "Tennis ball", "Flag", "Bell",
+        "Exclamation mark", "Car", "Bus",
+        "Bicycle", "House", "Building"
+    ]
+    
     let accentColours = [
         Color.red.gradient, Color.orange.gradient,
         Color.yellow.gradient, Color.green.gradient,
         Color.mint.gradient, Color.blue.gradient,
         Color.purple.gradient, Color.brown.gradient,
         Color.white.gradient, Color.black.gradient
+    ]
+    let accentColourNames = [
+        "Red", "Orange",
+        "Yellow", "Green",
+        "Mint", "Blue",
+        "Purple", "Brown",
+        "White", "Black"
     ]
     
     var body: some View {
@@ -62,6 +77,24 @@ struct GridCellDetailView: View {
                 TextField("No notes", text: $cell.notes)
             } header: {
                 Text("Cell notes")
+            }
+            
+            Section {
+                Picker(selection: $cell.colourIndex) {
+                    ForEach(accentColours.indices, id: \.self) { index in
+                        Text(accentColourNames[index])
+                    }
+                } label: {
+                    Label("Cell colour", systemImage: "paintpalette")
+                }
+                
+                Picker(selection: $cell.iconIndex) {
+                    ForEach(cellIcons.indices, id: \.self) { index in
+                        Text(cellIconNames[index])
+                    }
+                } label: {
+                    Label("Cell icon", systemImage: "star")
+                }
             }
         }
         .navigationTitle(cell.name)

@@ -12,7 +12,7 @@ import SwiftData
     var column: Int
     var row: Int
     var iconIndex: Int // sf symbol, will pull from a list
-    var colourIndex: Int// swiftui, again will pull from list
+    var colourIndex: Int // swiftui, again will pull from list
     var name: String
     var notes: String
     
