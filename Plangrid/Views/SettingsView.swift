@@ -27,6 +27,8 @@ struct SettingsView: View {
     @AppStorage("gridColumns") private var gridColumns = 5
     @AppStorage("eventsPerColumn") private var eventsPerColumn = 5
     
+    @AppStorage("scheduleIconsPadding") private var scheduleIconsPadding: Double = 18 // min 10 max 25
+    
     // ew ew ew bad code ew
     // i know theres a better way somewhere somehow but i cant be
     // bothered finding it and learning it when i have like 3 days left
@@ -70,6 +72,25 @@ struct SettingsView: View {
                 }
             } header: {
                 Text("Column titles")
+            }
+            
+            Section {
+                Slider(
+                    value: $scheduleIconsPadding,
+                    in: 10...25,
+                    step: 1.0,
+                    label: {
+                        Text("a")
+                    }
+                )
+                
+                Button {
+                    scheduleIconsPadding = 18
+                } label: {
+                    Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                }
+            } header: {
+                Text("Cell icon padding (\(scheduleIconsPadding.formatted(.number.precision(.fractionLength(0)))))")
             }
         }
     }

@@ -21,6 +21,8 @@ struct ScheduleView: View {
         Array(repeating: GridItem(.flexible()), count: gridColumns)
     }
     
+    @AppStorage("scheduleIconsPadding") private var scheduleIconsPadding: Double = 18 // min 10 max 25
+    
     // ew bad code ew
     @AppStorage("column1Label") private var column1Label = "Mon"
     @AppStorage("column2Label") private var column2Label = "Tue"
@@ -78,7 +80,7 @@ struct ScheduleView: View {
                                 Image(systemName: cellIcons[cell.iconIndex])
                                     .resizable()
                                     .scaledToFit()
-                                    .padding(18)
+                                    .padding(scheduleIconsPadding)
                                     .foregroundStyle(bgBaseColour.adaptedTextColor())
                             }
                     }
