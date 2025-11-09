@@ -32,6 +32,13 @@ struct GridCellDetailView: View {
         Color.purple.gradient, Color.brown.gradient,
         Color.white.gradient, Color.black.gradient
     ]
+    let baseAccentColours = [
+        Color.red, Color.orange,
+        Color.yellow, Color.green,
+        Color.mint, Color.blue,
+        Color.purple, Color.brown,
+        Color.white, Color.black
+    ]
     let accentColourNames = [
         "Red", "Orange",
         "Yellow", "Green",
@@ -51,7 +58,7 @@ struct GridCellDetailView: View {
                         .overlay {
                             Image(systemName: "\(cellIcons[cell.iconIndex])")
                                 .resizable()
-                                .foregroundStyle(.blue.adaptedTextColor())
+                                .foregroundStyle(baseAccentColours[cell.colourIndex].adaptedTextColor())
                                 .scaledToFit()
                                 .padding(15)
                         }
