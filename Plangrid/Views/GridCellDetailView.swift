@@ -17,14 +17,28 @@ struct GridCellDetailView: View {
         "clock", "soccerball", "rugbyball",
         "tennisball", "flag", "bell",
         "exclamationmark", "car", "bus",
-        "bicycle", "house", "building"
+        "bicycle", "house", "building",
+        "pencil", "calendar", "graduationcap",
+        "music.note", "mic", "paintpalette",
+        "gamecontroller", "laptopcomputer", "theatermasks",
+        "camera", "film", "leaf",
+        "heart", "stethoscope", "fork.knife",
+        "bag", "cart", "gift",
+        "airplane", "globe", "map"
     ]
     let cellIconNames = [
         "Document", "Clipboard", "Book",
         "Clock", "Football", "Rugby ball",
         "Tennis ball", "Flag", "Bell",
         "Exclamation mark", "Car", "Bus",
-        "Bicycle", "House", "Building"
+        "Bicycle", "House", "Building",
+        "Pencil", "Calendar", "Graduation cap",
+        "Music note", "Microphone", "Paint palette",
+        "Game controller", "Laptop", "Theatre masks",
+        "Camera", "Film", "Leaf",
+        "Heart", "Stethoscope", "Cutlery",
+        "Bag", "Shopping cart", "Gift",
+        "Airplane", "Globe", "Map"
     ]
     
     let accentColours = [
@@ -32,21 +46,24 @@ struct GridCellDetailView: View {
         Color.yellow.gradient, Color.green.gradient,
         Color.mint.gradient, Color.blue.gradient,
         Color.purple.gradient, Color.brown.gradient,
-        Color.white.gradient, Color.black.gradient
+        Color.white.gradient, Color.black.gradient,
+        Color.gray.gradient
     ]
     let baseAccentColours = [
         Color.red, Color.orange,
         Color.yellow, Color.green,
         Color.mint, Color.blue,
         Color.purple, Color.brown,
-        Color.white, Color.black
+        Color.white, Color.black,
+        Color.gray
     ]
     let accentColourNames = [
         "Red", "Orange",
         "Yellow", "Green",
         "Mint", "Blue",
         "Purple", "Brown",
-        "White", "Black"
+        "White", "Black",
+        "Grey"
     ]
     
     @State private var showingResetDialog = false
@@ -88,6 +105,7 @@ struct GridCellDetailView: View {
             Section {
                 TextEditor(text: $cell.notes)
                     .focused($isInputActive)
+                    .padding(3)
             } header: {
                 Text("Cell notes")
             }

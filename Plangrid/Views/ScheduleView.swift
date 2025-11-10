@@ -37,13 +37,14 @@ struct ScheduleView: View {
         Color.yellow.gradient, Color.green.gradient,
         Color.mint.gradient, Color.blue.gradient,
         Color.purple.gradient, Color.brown.gradient,
-        Color.white.gradient, Color.black.gradient
+        Color.white.gradient, Color.black.gradient,
+        Color.gray.gradient
     ]
     let baseAccentColours = [ // used for the adaptive colour calc
         Color.red, Color.orange, Color.yellow,
         Color.green, Color.mint, Color.blue,
         Color.purple, Color.brown, Color.white,
-        Color.black
+        Color.black, Color.gray
     ]
     
     let cellIcons = [
@@ -51,7 +52,14 @@ struct ScheduleView: View {
         "clock", "soccerball", "rugbyball",
         "tennisball", "flag", "bell",
         "exclamationmark", "car", "bus",
-        "bicycle", "house", "building"
+        "bicycle", "house", "building",
+        "pencil", "calendar", "graduationcap",
+        "music.note", "mic", "paintpalette",
+        "gamecontroller", "laptopcomputer", "theatermasks",
+        "camera", "film", "leaf",
+        "heart", "stethoscope", "fork.knife",
+        "bag", "cart", "gift",
+        "airplane", "globe", "map"
     ]
     
     var body: some View {
