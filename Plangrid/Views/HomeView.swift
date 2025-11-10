@@ -83,14 +83,6 @@ struct HomeView: View {
                 .listRowSeparator(.hidden)
                 
                 Section {
-                    Button {
-                        selectedTab = 1
-                    } label: {
-                        Label("Open schedule", systemImage: "square.grid.2x2")
-                    }
-                }
-                
-                Section {
                     if let randomCell {
                         NavigationLink {
                             GridCellDetailView(cell: randomCell)
@@ -140,6 +132,12 @@ struct HomeView: View {
                 }
                 
                 Section {
+                    Button {
+                        selectedTab = 1
+                    } label: {
+                        Label("Open schedule", systemImage: "square.grid.2x2")
+                    }
+                    
                     Button {
                         selectedTab = 2
                     } label: {
