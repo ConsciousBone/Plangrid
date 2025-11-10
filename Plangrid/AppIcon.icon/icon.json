@@ -1,0 +1,39 @@
+{
+  "fill" : {
+    "automatic-gradient" : "display-p3:0.19285,0.44213,0.95727,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "automatic-gradient" : "display-p3:0.43260,0.77375,0.89783,1.00000"
+          },
+          "image-name" : "Untitled_Artwork-1.png",
+          "name" : "Untitled_Artwork-1",
+          "position" : {
+            "scale" : 0.9,
+            "translation-in-points" : [
+              -2.796875,
+              -1.6015625
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
