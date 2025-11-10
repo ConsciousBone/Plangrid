@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		21BE986B2EC15FB7007225D4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 21BE986A2EC15FB3007225D4 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		2101D7B92EBA71F40043179B /* Plangrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plangrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21BE986A2EC15FB3007225D4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		2101D7B02EBA71F40043179B = {
 			isa = PBXGroup;
 			children = (
+				21BE986A2EC15FB3007225D4 /* README.md */,
 				2101D7BB2EBA71F40043179B /* Plangrid */,
 				2101D7BA2EBA71F40043179B /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21BE986B2EC15FB7007225D4 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

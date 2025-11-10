@@ -13,6 +13,8 @@ struct HomeView: View {
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
     
+    @AppStorage("selectedTab") private var selectedTab = 0
+    
     var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
         
@@ -26,13 +28,35 @@ struct HomeView: View {
         }
     }
     
+    
     var body: some View {
         Form {
             Section {
-                Text(greeting)
-                    .font(.title)
+                let date = Date()
+                let formattedDate = date.formatted(date: .complete, time: .omitted)
+                let day = date.formatted(.dateTime.weekday(.wide))
+                VStack(alignment: .leading) {
+                    Text(greeting)
+                        .font(.title)
+                        .padding(.bottom, 2)
+                    Text("Today's date is \(formattedDate).")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                    Text("Happy \(day)!")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
             } header: {
                 Text("\(appDisplayName) - version \(appVersion) build \(buildNumber)")
+            }
+            .listRowSeparator(.hidden)
+            
+            Section {
+                Button {
+                    selectedTab = 1
+                } label: {
+                    Label("Open schedule", systemImage: "square.grid.2x2")
+                }
             }
         }
     }
