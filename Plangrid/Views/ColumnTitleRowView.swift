@@ -18,7 +18,6 @@ struct ColumnTitleRowView: View {
             Spacer()
             TextField(placeholder, text: $variable)
                 .multilineTextAlignment(.trailing)
-                .autocorrectionDisabled()
         }
     }
 }

@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
+    // keyboard dismissal
+    @FocusState var isInputActive: Bool
+    
+    // accent colour stuff
     @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 5 // blue
     let accentColours = [
         Color.red.gradient, Color.orange.gradient,
@@ -24,6 +28,7 @@ struct SettingsView: View {
         "White", "Black"
     ]
     
+    // grid layout
     @AppStorage("gridColumns") private var gridColumns = 5
     @AppStorage("eventsPerColumn") private var eventsPerColumn = 5
     
@@ -40,76 +45,127 @@ struct SettingsView: View {
     @AppStorage("column6Label") private var column6Label = "Sat"
     @AppStorage("column7Label") private var column7Label = "Sun"
     
+    // reset confirmationdialog ispresented's
+    @State private var showingLayoutResetDialog = false
+    @State private var showingColumnTitlesResetDialog = false
+    @State private var showingPaddingResetDialog = false
+    
     var body: some View {
-        Form {
-            Section {
-                Picker(selection: $selectedAccentIndex) {
-                    ForEach(accentColours.indices, id: \.self) { index in
-                        Text(accentColourNames[index])
+        NavigationStack {
+            Form {
+                Section {
+                    Picker(selection: $selectedAccentIndex) {
+                        ForEach(accentColours.indices, id: \.self) { index in
+                            Text(accentColourNames[index])
+                        }
+                    } label: {
+                        Label("Accent colour", systemImage: "paintpalette")
                     }
-                } label: {
-                    Label("Accent colour", systemImage: "paintpalette")
-                }
-            }
-            
-            Section {
-                Stepper(value: $gridColumns, in: 1...7) {
-                    Label("Days in grid: \(gridColumns)", systemImage: "calendar")
                 }
                 
-                Stepper(value: $eventsPerColumn, in: 1...10) {
-                    Label("Events per column: \(eventsPerColumn)", systemImage: "ellipsis.calendar")
+                Section {
+                    Stepper(value: $gridColumns, in: 1...7) {
+                        Label("Days in grid: \(gridColumns)", systemImage: "calendar")
+                    }
+                    
+                    Stepper(value: $eventsPerColumn, in: 1...10) {
+                        Label("Events per column: \(eventsPerColumn)", systemImage: "ellipsis.calendar")
+                    }
+                    
+                    Button {
+                        showingLayoutResetDialog.toggle()
+                    } label: {
+                        Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                    }
+                    .confirmationDialog(
+                        "Reset layout",
+                        isPresented: $showingLayoutResetDialog
+                    ) {
+                        Button("Reset", role: .destructive) {
+                            gridColumns = 5
+                            eventsPerColumn = 5
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("This will reset the schedule layout to its default settings.")
+                    }
                 }
                 
-                Button {
-                    gridColumns = 5
-                    eventsPerColumn = 5
-                } label: {
-                    Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                Section {
+                    ForEach(1...gridColumns, id: \.self) { i in
+                        ColumnTitleRowView(
+                            num: "\(i)",
+                            placeholder: colLabelPlaceholder(for: i),
+                            variable: colLabelVar(for: i)
+                        )
+                        .focused($isInputActive)
+                    }
+                    
+                    Button {
+                        showingColumnTitlesResetDialog.toggle()
+                    } label: {
+                        Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
+                    }
+                    .confirmationDialog(
+                        "Reset column titles",
+                        isPresented: $showingColumnTitlesResetDialog
+                    ) {
+                        Button("Reset", role: .destructive) {
+                            column1Label = "Mon"
+                            column2Label = "Tue"
+                            column3Label = "Wed"
+                            column4Label = "Thu"
+                            column5Label = "Fri"
+                            column6Label = "Sat"
+                            column7Label = "Sun"
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("This will reset the column titles to their default settings.")
+                    }
+                } header: {
+                    Text("Column titles")
                 }
-            }
-            
-            Section {
-                ForEach(1...gridColumns, id: \.self) { i in
-                    ColumnTitleRowView(
-                        num: "\(i)",
-                        placeholder: colLabelPlaceholder(for: i),
-                        variable: colLabelVar(for: i)
+                
+                Section {
+                    Slider(
+                        value: $scheduleIconsPadding,
+                        in: 10...25,
+                        step: 1.0,
+                        label: {
+                            Text("a")
+                        }
                     )
-                }
-                
-                Button {
-                    column1Label = "Mon"
-                    column2Label = "Tue"
-                    column3Label = "Wed"
-                    column4Label = "Thu"
-                    column5Label = "Fri"
-                    column6Label = "Sat"
-                    column7Label = "Sun"
-                } label: {
-                    Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
-                }
-            } header: {
-                Text("Column titles")
-            }
-            
-            Section {
-                Slider(
-                    value: $scheduleIconsPadding,
-                    in: 10...25,
-                    step: 1.0,
-                    label: {
-                        Text("a")
+                    
+                    Button {
+                        showingPaddingResetDialog.toggle()
+                    } label: {
+                        Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
                     }
-                )
-                
-                Button {
-                    scheduleIconsPadding = 18
-                } label: {
-                    Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                    .confirmationDialog(
+                        "Reset padding",
+                        isPresented: $showingPaddingResetDialog
+                    ) {
+                        Button("Reset", role: .destructive) {
+                            scheduleIconsPadding = 18
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("This will reset the cell icon padding to its default value.")
+                    }
+                } header: {
+                    Text("Cell icon padding (\(scheduleIconsPadding.formatted(.number.precision(.fractionLength(0)))))")
                 }
-            } header: {
-                Text("Cell icon padding (\(scheduleIconsPadding.formatted(.number.precision(.fractionLength(0)))))")
+            }
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    Button {
+                        print("dismissing keyboard")
+                        isInputActive = false
+                    } label: {
+                        Label("Dismiss", systemImage: "xmark")
+                    }
+                }
             }
         }
     }

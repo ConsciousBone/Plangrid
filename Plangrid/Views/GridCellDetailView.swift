@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct GridCellDetailView: View {
+    @FocusState var isInputActive: Bool
+    
     @Bindable var cell: GridCell
     
     let cellIcons = [
@@ -47,6 +49,8 @@ struct GridCellDetailView: View {
         "White", "Black"
     ]
     
+    @State private var showingResetDialog = false
+    
     var body: some View {
         Form {
             Section {
@@ -76,12 +80,14 @@ struct GridCellDetailView: View {
             
             Section {
                 TextField("No name", text: $cell.name)
+                    .focused($isInputActive)
             } header: {
                 Text("Cell name")
             }
             
             Section {
-                TextField("No notes", text: $cell.notes)
+                TextEditor(text: $cell.notes)
+                    .focused($isInputActive)
             } header: {
                 Text("Cell notes")
             }
@@ -106,16 +112,37 @@ struct GridCellDetailView: View {
             
             Section {
                 Button {
-                    cell.name = "No name"
-                    cell.notes = "No notes"
-                    cell.colourIndex = 5
-                    cell.iconIndex = 0
+                    showingResetDialog.toggle()
                 } label: {
                     Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
+                }
+                .confirmationDialog(
+                    "Reset all cell settings?",
+                    isPresented: $showingResetDialog
+                ){
+                    Button("Reset", role: .destructive) {
+                        cell.name = "No name"
+                        cell.notes = "No notes"
+                        cell.colourIndex = 5
+                        cell.iconIndex = 0
+                    }
+                    Button("Cancel", role: .cancel) { }
+                } message: {
+                    Text("This will reset this cell to its default settings.")
                 }
             }
         }
         .navigationTitle(cell.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                Button {
+                    print("dismissing keyboard")
+                    isInputActive = false
+                } label: {
+                    Label("Dismiss", systemImage: "xmark")
+                }
+            }
+        }
     }
 }
