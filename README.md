@@ -8,8 +8,7 @@ It supports iPhone and iPad, as well as Mac and Apple Vision Pro using *Designed
 <img src="/Screenshots/4.png" width=128> <img src="/Screenshots/5.png" width=128> <img src="/Screenshots/6.png" width=128>
 <img src="/Screenshots/7.png" width=128> <img src="/Screenshots/8.png" width=128>
 ## Video
-[YouTube link (unlisted)](https://example.com)
-takes you to example.com for now :/
+[YouTube link (unlisted)](https://youtu.be/9t3H82nIhFw)
 
 # How to get Plangrid
 As per usual for all my Siege projects, this is the way I recommend but there are other ways to sideload apps onto iOS/iPadOS devices such as AltStore or SideStore which *should* work, there's no reason for them not to!
