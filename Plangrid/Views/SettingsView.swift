@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct SettingsView: View {
+    let appDisplayName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "Plangrid"
+    
     // swiftdatas
     @Environment(\.modelContext) private var modelContext
     @Query private var cells: [GridCell]
@@ -70,12 +72,20 @@ struct SettingsView: View {
                 }
                 
                 Section {
+                    NavigationLink {
+                        AboutView()
+                    } label: {
+                        Label("About \(appDisplayName)", systemImage: "info")
+                    }
+                }
+                
+                Section {
                     Stepper(value: $gridColumns, in: 1...7) {
                         Label("Days in grid: \(gridColumns)", systemImage: "calendar")
                     }
                     
                     Stepper(value: $eventsPerColumn, in: 1...10) {
-                        Label("Events per column: \(eventsPerColumn)", systemImage: "ellipsis.calendar")
+                        Label("Events per column: \(eventsPerColumn)", systemImage: "rectangle.grid.3x2")
                     }
                     
                     Button {
@@ -83,7 +93,7 @@ struct SettingsView: View {
                         eventsPerColumn = 5
                         scheduleIconsPadding = 12
                     } label: {
-                        Label("Full week", systemImage: "7.calendar")
+                        Label("Full week", systemImage: "house")
                     }
                     
                     Button {
@@ -105,7 +115,7 @@ struct SettingsView: View {
                     Button {
                         showingLayoutResetDialog.toggle()
                     } label: {
-                        Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                        Label("Reset", systemImage: "gobackward")
                     }
                     .tint(.red)
                     .confirmationDialog(
@@ -135,7 +145,7 @@ struct SettingsView: View {
                     Button {
                         showingColumnTitlesResetDialog.toggle()
                     } label: {
-                        Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
+                        Label("Reset all", systemImage: "gobackward")
                     }
                     .tint(.red)
                     .confirmationDialog(
@@ -172,7 +182,7 @@ struct SettingsView: View {
                     Button {
                         showingPaddingResetDialog.toggle()
                     } label: {
-                        Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                        Label("Reset", systemImage: "gobackward")
                     }
                     .tint(.red)
                     .confirmationDialog(
@@ -194,7 +204,7 @@ struct SettingsView: View {
                     Button {
                         showingClearAllCellsDialog.toggle()
                     } label: {
-                        Label("Reset all cells", systemImage: "arrow.trianglehead.counterclockwise")
+                        Label("Reset all cells", systemImage: "gobackward")
                     }
                     .tint(.red)
                     .confirmationDialog(
@@ -208,6 +218,8 @@ struct SettingsView: View {
                     }
                 }
             }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .keyboard) {
                     Button {

@@ -13,7 +13,7 @@ struct GridCellDetailView: View {
     @Bindable var cell: GridCell
     
     let cellIcons = [
-        "document", "clipboard", "book",
+        "doc", "clipboard", "book",
         "clock", "soccerball", "rugbyball",
         "tennisball", "flag", "bell",
         "exclamationmark", "car", "bus",
@@ -133,13 +133,15 @@ struct GridCellDetailView: View {
                 } label: {
                     Label("Randomise", systemImage: "shuffle")
                 }
+            } footer: {
+                Text("If certain symbols do not appear, your iOS version does not include them. Update iOS to see them.")
             }
             
             Section {
                 Button {
                     showingResetDialog.toggle()
                 } label: {
-                    Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
+                    Label("Reset all", systemImage: "gobackward")
                 }
                 .tint(.red)
                 .confirmationDialog(

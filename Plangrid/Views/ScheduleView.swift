@@ -48,7 +48,7 @@ struct ScheduleView: View {
     ]
     
     let cellIcons = [
-        "document", "clipboard", "book",
+        "doc", "clipboard", "book",
         "clock", "soccerball", "rugbyball",
         "tennisball", "flag", "bell",
         "exclamationmark", "car", "bus",
