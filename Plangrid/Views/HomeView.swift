@@ -130,10 +130,20 @@ struct HomeView: View {
                     .disabled(cells.isEmpty)
                 } header: {
                     Text("Random cell")
+                } footer: {
+                    Text("This may show a cell outside of what is visible to you in the grid - you can show more cells by going into settings.")
                 }
                 .onAppear {
                     if randomCell == nil {
                         randomCell = cells.randomElement()
+                    }
+                }
+                
+                Section {
+                    Button {
+                        selectedTab = 2
+                    } label: {
+                        Label("Open settings", systemImage: "gear")
                     }
                 }
             }
