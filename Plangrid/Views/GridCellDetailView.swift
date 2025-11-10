@@ -105,7 +105,6 @@ struct GridCellDetailView: View {
             Section {
                 TextEditor(text: $cell.notes)
                     .focused($isInputActive)
-                    .padding(3)
             } header: {
                 Text("Cell notes")
             }
@@ -126,6 +125,14 @@ struct GridCellDetailView: View {
                 } label: {
                     Label("Cell icon", systemImage: "star")
                 }
+                
+                Button {
+                    print("randomising colour and icon")
+                    cell.colourIndex = Int.random(in: 0..<accentColours.count)
+                    cell.iconIndex = Int.random(in: 0..<cellIcons.count)
+                } label: {
+                    Label("Randomise", systemImage: "shuffle")
+                }
             }
             
             Section {
@@ -134,6 +141,7 @@ struct GridCellDetailView: View {
                 } label: {
                     Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
                 }
+                .tint(.red)
                 .confirmationDialog(
                     "Reset all cell settings?",
                     isPresented: $showingResetDialog
@@ -146,7 +154,7 @@ struct GridCellDetailView: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 } message: {
-                    Text("This will reset this cell to its default settings.")
+                    Text("This will reset this cell to its default settings. This cannot be undone.")
                 }
             }
         }

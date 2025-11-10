@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
+    // swiftdatas
+    @Environment(\.modelContext) private var modelContext
+    @Query private var cells: [GridCell]
+    
     // keyboard dismissal
     @FocusState var isInputActive: Bool
     
@@ -49,6 +54,7 @@ struct SettingsView: View {
     @State private var showingLayoutResetDialog = false
     @State private var showingColumnTitlesResetDialog = false
     @State private var showingPaddingResetDialog = false
+    @State private var showingClearAllCellsDialog = false
     
     var body: some View {
         NavigationStack {
@@ -73,10 +79,35 @@ struct SettingsView: View {
                     }
                     
                     Button {
+                        gridColumns = 7
+                        eventsPerColumn = 5
+                        scheduleIconsPadding = 12
+                    } label: {
+                        Label("Full week", systemImage: "7.calendar")
+                    }
+                    
+                    Button {
+                        gridColumns = 5
+                        eventsPerColumn = 5
+                        scheduleIconsPadding = 18
+                    } label: {
+                        Label("Work week", systemImage: "building")
+                    }
+                    
+                    Button {
+                        gridColumns = 3
+                        eventsPerColumn = 4
+                        scheduleIconsPadding = 22
+                    } label: {
+                        Label("Compact", systemImage: "arrow.down.right.and.arrow.up.left")
+                    }
+                    
+                    Button {
                         showingLayoutResetDialog.toggle()
                     } label: {
                         Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
                     }
+                    .tint(.red)
                     .confirmationDialog(
                         "Reset layout",
                         isPresented: $showingLayoutResetDialog
@@ -87,7 +118,7 @@ struct SettingsView: View {
                         }
                         Button("Cancel", role: .cancel) { }
                     } message: {
-                        Text("This will reset the schedule layout to its default settings.")
+                        Text("This will reset the schedule layout to its default settings. This cannot be undone.")
                     }
                 }
                 
@@ -106,6 +137,7 @@ struct SettingsView: View {
                     } label: {
                         Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
                     }
+                    .tint(.red)
                     .confirmationDialog(
                         "Reset column titles",
                         isPresented: $showingColumnTitlesResetDialog
@@ -121,7 +153,7 @@ struct SettingsView: View {
                         }
                         Button("Cancel", role: .cancel) { }
                     } message: {
-                        Text("This will reset the column titles to their default settings.")
+                        Text("This will reset the column titles to their default settings. This cannot be undone.")
                     }
                 } header: {
                     Text("Column titles")
@@ -142,6 +174,7 @@ struct SettingsView: View {
                     } label: {
                         Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
                     }
+                    .tint(.red)
                     .confirmationDialog(
                         "Reset padding",
                         isPresented: $showingPaddingResetDialog
@@ -151,10 +184,28 @@ struct SettingsView: View {
                         }
                         Button("Cancel", role: .cancel) { }
                     } message: {
-                        Text("This will reset the cell icon padding to its default value.")
+                        Text("This will reset the cell icon padding to its default value. This cannot be undone.")
                     }
                 } header: {
                     Text("Cell icon padding (\(scheduleIconsPadding.formatted(.number.precision(.fractionLength(0)))))")
+                }
+                
+                Section {
+                    Button {
+                        showingClearAllCellsDialog.toggle()
+                    } label: {
+                        Label("Reset all cells", systemImage: "arrow.trianglehead.counterclockwise")
+                    }
+                    .tint(.red)
+                    .confirmationDialog(
+                        "Reset all cells",
+                        isPresented: $showingClearAllCellsDialog
+                    ) {
+                        Button("Reset", role: .destructive) { clearAllCells() }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("This will reset all cells to their default settings. This cannot be undone.")
+                    }
                 }
             }
             .toolbar {
@@ -167,6 +218,12 @@ struct SettingsView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func clearAllCells() {
+        for cell in cells {
+            modelContext.delete(cell)
         }
     }
     
