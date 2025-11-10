@@ -62,6 +62,18 @@ struct ScheduleView: View {
         "airplane", "globe", "map"
     ]
     
+    // ios =>18 have some differences in grids to ios =<26 so
+    // this bascially stops that from happening :)
+    // idk why on =>18 it says the top left is pos (-1,0),
+    // and i aint got time to fix it, so deal with it :p
+    var fixedEventsPerColumn: Int {
+        if #available(iOS 26, *) {
+            return eventsPerColumn + 1
+        } else {
+            return eventsPerColumn
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             LazyVGrid(columns: columns) {
@@ -69,7 +81,7 @@ struct ScheduleView: View {
                     Text(colLabelText(for: index))
                 }
                 
-                ForEach(0..<gridColumns * (eventsPerColumn + 1), id: \.self) { index in
+                ForEach(0..<gridColumns * (fixedEventsPerColumn), id: \.self) { index in
                     let col = index % gridColumns
                     let row = index / gridColumns
                     let trueRow = row - 1
