@@ -19,3 +19,14 @@ As per usual for all my Siege projects, this is the way I recommend but there ar
 6. In the `Apple ID` text field, enter your Apple Account/ID's email. If your account does not have a paid and active Apple Developer subscription, you will have to reinstall/resign the app every 7 days, but if you have a Developer subscription this goes to a pretty decent 365 days!
 7. Click the `Start` button, and enter your Apple Account/ID's password when prompted to. **This password goes straight to Apple; no one apart from you and Apple will ever see this password. Not the developers of Sideloadly, and not me.**
 8. Wait for the app to install, and then launch it! *If you are prompted to enable Developer Mode or trust the app/developer, then do so.*
+
+# Inspiration
+From using apps like Microsoft Teams, every calendar app ever, etc, their implementation of grids and tables has always been the same - scrolling horizontally, with rectangular cells showing all the information about each event.  
+I wanted to make something different, with Plangrid all of your events (called *cells*) are shown at once, in a grid containing perfect squares with icons and colours to represent them - not tons of information that could end up being unneccesary. You can still get the more detailed info like the event name and notes of said event by tapping into a cell, and while you're there you can also easily edit all information about said cell; the colour, icon, name, and notes are all easily tweakable!  
+This ensures you get the best of both worlds: a clean, easily glanceable grid of events, and, when you need it, all the information you would typically get.  
+With Plangrid being a Siege project, it of course had to fit with the week's theme, this week being `Grid`, hence the grid layout of the schedule tab!
+
+# Tech stack
+- Swift (what basically every modern app for Apple platforms is written in)
+- SwiftUI (for the whole of the app's UI, goated library btw apple tyvm)
+- SwiftData (to store information about cells, i.e. name, notes, colour, etc)
