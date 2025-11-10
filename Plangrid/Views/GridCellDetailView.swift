@@ -54,7 +54,7 @@ struct GridCellDetailView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundStyle(accentColours[cell.colourIndex])
                         .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: 60)
+                        .frame(width: 60, height: 60)
                         .overlay {
                             Image(systemName: "\(cellIcons[cell.iconIndex])")
                                 .resizable()

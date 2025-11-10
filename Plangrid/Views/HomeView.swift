@@ -99,7 +99,7 @@ struct HomeView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .foregroundStyle(accentColours[randomCell.colourIndex])
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(maxWidth: 60)
+                                    .frame(width: 60, height: 60)
                                     .overlay {
                                         Image(systemName: "\(cellIcons[randomCell.iconIndex])")
                                             .resizable()
