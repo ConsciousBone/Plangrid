@@ -60,6 +60,13 @@ struct SettingsView: View {
                 Stepper(value: $eventsPerColumn, in: 1...10) {
                     Label("Events per column: \(eventsPerColumn)", systemImage: "ellipsis.calendar")
                 }
+                
+                Button {
+                    gridColumns = 5
+                    eventsPerColumn = 5
+                } label: {
+                    Label("Reset", systemImage: "arrow.trianglehead.counterclockwise")
+                }
             }
             
             Section {
@@ -69,6 +76,18 @@ struct SettingsView: View {
                         placeholder: colLabelPlaceholder(for: i),
                         variable: colLabelVar(for: i)
                     )
+                }
+                
+                Button {
+                    column1Label = "Mon"
+                    column2Label = "Tue"
+                    column3Label = "Wed"
+                    column4Label = "Thu"
+                    column5Label = "Fri"
+                    column6Label = "Sat"
+                    column7Label = "Sun"
+                } label: {
+                    Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
                 }
             } header: {
                 Text("Column titles")

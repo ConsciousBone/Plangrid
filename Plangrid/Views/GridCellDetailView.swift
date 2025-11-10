@@ -103,6 +103,17 @@ struct GridCellDetailView: View {
                     Label("Cell icon", systemImage: "star")
                 }
             }
+            
+            Section {
+                Button {
+                    cell.name = "No name"
+                    cell.notes = "No notes"
+                    cell.colourIndex = 5
+                    cell.iconIndex = 0
+                } label: {
+                    Label("Reset all", systemImage: "arrow.trianglehead.counterclockwise")
+                }
+            }
         }
         .navigationTitle(cell.name)
         .navigationBarTitleDisplayMode(.inline)
